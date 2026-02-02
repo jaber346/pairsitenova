@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𝐍𝐎𝐕𝐀 𝐗𝐌𝐃</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  --accent1: #8b5cf6;
+  --accent2: #22d3ee;
+  --card1: #141428;
+  --card2: #0b0b14;
+  --stroke: rgba(255,255,255,.10);
+  --text-muted: #a1a1aa;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #14162b, #070816);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+/* CARD */
+.card {
+  width: 92%;
+  max-width: 380px;
+  background: linear-gradient(180deg, var(--card1), var(--card2));
+  border: 1px solid var(--stroke);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 25px 50px rgba(0,0,0,.7);
+  animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* TITLE */
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.card p {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+/* INPUT */
+.input-box {
+  display: flex;
+  align-items: center;
+  background: #1f1f33;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid transparent;
+  transition: .25s ease;
+}
+
+.input-box:focus-within {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.25);
+}
+
+.input-box i {
+  color: #818cf8;
+  font-size: 18px;
+  margin-right: 12px;
+}
+
+.input-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+}
+
+.input-box input::placeholder {
+  color: #6b7280;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(34,211,238,.25);
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+/* RESULT */
+#pair {
+  margin-top: 18px;
+  text-align: center;
+  min-height: 32px;
+}
+
+.loader {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--accent2);
+  border-top-color: transparent;
+  border-radius: 50%;
+  margin: auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* COPY BUTTON */
+.copy-btn {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  background: #1f2937;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .2s ease;
+}
+
+.copy-btn:hover {
+  background: #374151;
+}
+
+.copy-btn.success {
+  background: #16a34a;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>NOVA-XMD Pairing</h2>
+  <p>Entre votre numero de telephone avec l’indicatif</p>
+
+  <div class="input-box">
+    <i class="fa-solid fa-phone"></i>
+    <input type="number" id="number" placeholder="+226xxxxxxxxx">
+  </div>
+
+  <button id="submit">
+    <i class="fa-solid fa-link"></i> Generate Pairing Code
+  </button>
+
+  <main id="pair"></main>
+
+  <div class="footer">© NOVA-XMD</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+
+<script>
+let a = document.getElementById("pair");
+let b = document.getElementById("submit");
+let c = document.getElementById("number");
+
+async function Copy() {
+  let codeEl = document.getElementById("copy");
+  let btn = document.querySelector(".copy-btn");
+
+  await navigator.clipboard.writeText(codeEl.dataset.code);
+
+  btn.classList.add("success");
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+
+  setTimeout(() => {
+    btn.classList.remove("success");
+    btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy Code';
+  }, 1200);
+}
+
+b.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  if (!c.value || c.value.replace(/[^0-9]/g, "").length < 11) {
+    a.innerHTML = '<p style="color:#f87171">Invalid number format</p>';
+    return;
+  }
+
+  const bc = c.value.replace(/[^0-9]/g, "");
+  a.innerHTML = '<div class="loader"></div>';
+
+  try {
+    let { data } = await axios(`/code?number=${bc}`);
+    let code = data.code || "Unavailable";
+
+    a.innerHTML = `
+      <div id="copy" data-code="${code}"
+           style="color:#ef4444;font-weight:700;font-size:18px">
+        CODE: ${code}
+      </div>
+
+      <button class="copy-btn" onclick="Copy()">
+        <i class="fa-solid fa-copy"></i> Copy Code
+      </button>
+    `;
+  } catch {
+    a.innerHTML = '<p style="color:#f87171">Service error</p>';
+  }
+});
+</script>
+
+</body>
+</html>

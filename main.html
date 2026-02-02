@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>𝐍𝐎𝐕𝐀 𝐗𝐌𝐃</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --accent1: #8b5cf6;
+  --accent2: #22d3ee;
+  --glass: rgba(255,255,255,.07);
+  --glass-border: rgba(255,255,255,.12);
+  --text-muted: rgba(255,255,255,.72);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #070816, #111827, #0b3a4a);
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+  color: #fff;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* CONTAINER */
+.wrapper {
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  border-radius: 26px;
+  border: 1px solid var(--glass-border);
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.45);
+  text-align: center;
+}
+
+/* TITLE */
+.wrapper h1 {
+  margin: 0 0 10px;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.wrapper p {
+  font-size: 14px;
+  color: #cfd8dc;
+  margin-bottom: 30px;
+}
+
+/* BUTTONS */
+.btn {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg, #070816, #111827, #0b3a4a);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all .25s ease;
+  box-shadow: 0 12px 28px rgba(34,211,238,.28);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(34,211,238,.40);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* SECONDARY BUTTON */
+.btn.secondary {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,.5);
+  color: #fff;
+  box-shadow: none;
+}
+
+.btn.secondary:hover {
+  background: rgba(255,255,255,.12);
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 25px;
+  font-size: 12px;
+  color: #b0bec5;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .wrapper h1 {
+    font-size: 2rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <h1>𝐍𝐎𝐕𝐀 𝐗𝐌𝐃</h1>
+  <p>WhatsApp Bot • Pairing & QR Access</p>
+
+  <button onclick="window.open('/qrpage')" class="btn">
+    🔳 QR Code
+  </button>
+
+  <button onclick="window.open('/pair')" class="btn">
+    🔗 Pair Code
+  </button>
+
+  <div class="footer">© NOVA-XMD</div>
+</div>
+
+</body>
+</html>
